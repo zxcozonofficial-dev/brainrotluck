@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="robots" content="noindex">
+<title>BrainrotLuck</title>
+<style>
+  html, body { margin: 0; height: 100%; background: #030604; color: #86a08e; font: 600 14px/1.4 system-ui, sans-serif; }
+  body { display: grid; place-items: center; text-align: center; }
+  b { display: block; color: #5cc93a; font-size: 22px; letter-spacing: .04em; margin-bottom: 14px; }
+  .bar { width: 160px; height: 6px; margin: 0 auto; background: #13201a; overflow: hidden; }
+  .bar i { display: block; height: 100%; width: 40%; background: #5cc93a; animation: l 1s linear infinite; }
+  @keyframes l { from { transform: translateX(-100%); } to { transform: translateX(250%); } }
+  p { max-width: 280px; margin: 16px auto 0; }
+  button { margin-top: 14px; padding: 10px 22px; border: 0; background: #5cc93a; color: #08130b; font: 700 15px system-ui, sans-serif; }
+</style>
+</head>
+<body>
+<div id="box"><b>BRAINROT LUCK</b><div class="bar"><i></i></div></div>
+<script>
+// Переходник: Telegram открывает эту страницу, она проверяет, какой адрес сервера доступен
+// у этого игрока (прямой или туннель), и переходит на него, сохраняя данные Telegram из #hash.
+(function () {
+  var OK_HOST = /^[a-z0-9.-]+\.(trycloudflare\.com|sslip\.io|nip\.io)$/;
+  var qs = new URLSearchParams(location.search);
+  var direct = (qs.get('d') || '').split(',').filter(function (h) { return OK_HOST.test(h); });
+  var tunnel = OK_HOST.test(qs.get('t') || '') ? [qs.get('t')] : [];
+  var KEY = 'brl-last';
+  var last = null; try { last = localStorage.getItem(KEY); } catch (e) {}
+
+  function probe(host, ms) {
+    return new Promise(function (resolve, reject) {
+      var ctrl = new AbortController();
+      var to = setTimeout(function () { ctrl.abort(); reject(new Error('timeout')); }, ms);
+      fetch('https://' + host + '/ping?_=' + Date.now(), { cache: 'no-store', signal: ctrl.signal })
+        .then(function (r) { return r.text(); })
+        .then(function (t) { clearTimeout(to); t.indexOf('BrainrotLuck') === 0 ? resolve(host) : reject(new Error('bad')); })
+        .catch(function (e) { clearTimeout(to); reject(e); });
+    });
+  }
+  function any(list) {
+    return new Promise(function (resolve, reject) {
+      var left = list.length; if (!left) return reject(new Error('none'));
+      list.forEach(function (p) { p.then(resolve, function () { if (--left === 0) reject(new Error('all failed')); }); });
+    });
+  }
+  function go(host) {
+    try { localStorage.setItem(KEY, host); } catch (e) {}
+    location.replace('https://' + host + '/' + location.hash);
+  }
+  function fail() {
+    document.getElementById('box').innerHTML = '<b>BRAINROT LUCK</b><p>Не получилось связаться с сервером. Проверь интернет и попробуй ещё раз.</p><button id="re">Ещё раз</button>';
+    document.getElementById('re').onclick = function () { location.reload(); };
+  }
+  function run() {
+    // прямой адрес в приоритете: через Cloudflare в РФ приложение грузится обрезанным.
+    // Если прямой не ответил за 3 с (или сразу упал на DNS) — пробуем туннель.
+    var directs = direct.map(function (h) { return probe(h, 3000); });
+    any(directs).then(go, function () {
+      any(tunnel.map(function (h) { return probe(h, 8000); })).then(go, fail);
+    });
+  }
+  // прошлый удачный адрес из этого же набора — пробуем первым
+  if (last && (direct.indexOf(last) >= 0 || tunnel.indexOf(last) >= 0) && direct.indexOf(last) >= 0) probe(last, 1500).then(go, run);
+  else run();
+})();
+</script>
+</body>
+</html>
