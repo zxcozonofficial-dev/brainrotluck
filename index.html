@@ -2,27 +2,252 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <meta name="robots" content="noindex">
+<meta name="color-scheme" content="dark">
 <title>BrainrotLuck</title>
 <style>
-  html, body { margin: 0; height: 100%; background: #030604; color: #86a08e; font: 600 14px/1.4 system-ui, sans-serif; }
-  body { display: grid; place-items: center; text-align: center; }
-  .clv { width: 96px; height: 96px; display: block; margin: 0 auto 14px; animation: c 1.6s steps(8) infinite; }
-  @keyframes c { 25% { transform: translateY(-6px) rotate(-6deg); } 50% { transform: none; } 75% { transform: translateY(-6px) rotate(6deg); } }
-  b { display: block; font-family: monospace; color: #5cc93a; font-size: 22px; letter-spacing: .04em; margin-bottom: 14px; }
-  .bar { width: 160px; height: 6px; margin: 0 auto; background: #13201a; overflow: hidden; }
-  .bar i { display: block; height: 100%; width: 40%; background: #5cc93a; animation: l 1s linear infinite; }
-  @keyframes l { from { transform: translateX(-100%); } to { transform: translateX(250%); } }
-  #st { margin: 16px auto 0; max-width: 300px; min-height: 60px; font-size: 12px; color: #5d7365; }
-  #st div { margin: 2px 0; }
-  .ok { color: #5cc93a; } .bad { color: #e06464; }
-  p { max-width: 280px; margin: 16px auto 0; }
-  button { margin-top: 14px; padding: 10px 22px; border: 0; background: #5cc93a; color: #08130b; font: 700 15px system-ui, sans-serif; }
+@font-face { font-family: 'Pixelify Sans'; font-weight: 700; font-display: block; src: url(data:font/woff2;base64,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) format('woff2'); }
+html, body { margin: 0; height: 100%; background: #030604; }
 </style>
 </head>
 <body>
-<div><div id="box"><svg class="clv" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 22" shape-rendering="crispEdges"><rect x="1" y="0" width="1.02" height="1.02" fill="#ffe066"/><rect x="4" y="0" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="5" y="0" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="6" y="0" width="1.02" height="1.02" fill="#e6ffa6"/><rect x="7" y="0" width="1.02" height="1.02" fill="#a6f03c"/><rect x="8" y="0" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="10" y="0" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="11" y="0" width="1.02" height="1.02" fill="#e6ffa6"/><rect x="12" y="0" width="1.02" height="1.02" fill="#e6ffa6"/><rect x="13" y="0" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="14" y="0" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="0" y="1" width="1.02" height="1.02" fill="#ffe066"/><rect x="1" y="1" width="1.02" height="1.02" fill="#ffe066"/><rect x="2" y="1" width="1.02" height="1.02" fill="#ffe066"/><rect x="3" y="1" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="4" y="1" width="1.02" height="1.02" fill="#e6ffa6"/><rect x="5" y="1" width="1.02" height="1.02" fill="#e6ffa6"/><rect x="6" y="1" width="1.02" height="1.02" fill="#a6f03c"/><rect x="7" y="1" width="1.02" height="1.02" fill="#5cc93a"/><rect x="8" y="1" width="1.02" height="1.02" fill="#5cc93a"/><rect x="9" y="1" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="10" y="1" width="1.02" height="1.02" fill="#e6ffa6"/><rect x="11" y="1" width="1.02" height="1.02" fill="#e6ffa6"/><rect x="12" y="1" width="1.02" height="1.02" fill="#e6ffa6"/><rect x="13" y="1" width="1.02" height="1.02" fill="#e6ffa6"/><rect x="14" y="1" width="1.02" height="1.02" fill="#a6f03c"/><rect x="15" y="1" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="1" y="2" width="1.02" height="1.02" fill="#ffe066"/><rect x="2" y="2" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="3" y="2" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="4" y="2" width="1.02" height="1.02" fill="#e6ffa6"/><rect x="5" y="2" width="1.02" height="1.02" fill="#a6f03c"/><rect x="6" y="2" width="1.02" height="1.02" fill="#5cc93a"/><rect x="7" y="2" width="1.02" height="1.02" fill="#5cc93a"/><rect x="8" y="2" width="1.02" height="1.02" fill="#5cc93a"/><rect x="9" y="2" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="10" y="2" width="1.02" height="1.02" fill="#e6ffa6"/><rect x="11" y="2" width="1.02" height="1.02" fill="#e6ffa6"/><rect x="12" y="2" width="1.02" height="1.02" fill="#e6ffa6"/><rect x="13" y="2" width="1.02" height="1.02" fill="#a6f03c"/><rect x="14" y="2" width="1.02" height="1.02" fill="#5cc93a"/><rect x="15" y="2" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="16" y="2" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="1" y="3" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="2" y="3" width="1.02" height="1.02" fill="#e6ffa6"/><rect x="3" y="3" width="1.02" height="1.02" fill="#e6ffa6"/><rect x="4" y="3" width="1.02" height="1.02" fill="#a6f03c"/><rect x="5" y="3" width="1.02" height="1.02" fill="#5cc93a"/><rect x="6" y="3" width="1.02" height="1.02" fill="#5cc93a"/><rect x="7" y="3" width="1.02" height="1.02" fill="#5cc93a"/><rect x="8" y="3" width="1.02" height="1.02" fill="#5cc93a"/><rect x="9" y="3" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="10" y="3" width="1.02" height="1.02" fill="#e6ffa6"/><rect x="11" y="3" width="1.02" height="1.02" fill="#e6ffa6"/><rect x="12" y="3" width="1.02" height="1.02" fill="#a6f03c"/><rect x="13" y="3" width="1.02" height="1.02" fill="#5cc93a"/><rect x="14" y="3" width="1.02" height="1.02" fill="#5cc93a"/><rect x="15" y="3" width="1.02" height="1.02" fill="#5cc93a"/><rect x="16" y="3" width="1.02" height="1.02" fill="#5cc93a"/><rect x="17" y="3" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="1" y="4" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="2" y="4" width="1.02" height="1.02" fill="#e6ffa6"/><rect x="3" y="4" width="1.02" height="1.02" fill="#a6f03c"/><rect x="4" y="4" width="1.02" height="1.02" fill="#5cc93a"/><rect x="5" y="4" width="1.02" height="1.02" fill="#5cc93a"/><rect x="6" y="4" width="1.02" height="1.02" fill="#5cc93a"/><rect x="7" y="4" width="1.02" height="1.02" fill="#5cc93a"/><rect x="8" y="4" width="1.02" height="1.02" fill="#2f7d1f"/><rect x="9" y="4" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="10" y="4" width="1.02" height="1.02" fill="#e6ffa6"/><rect x="11" y="4" width="1.02" height="1.02" fill="#a6f03c"/><rect x="12" y="4" width="1.02" height="1.02" fill="#5cc93a"/><rect x="13" y="4" width="1.02" height="1.02" fill="#5cc93a"/><rect x="14" y="4" width="1.02" height="1.02" fill="#5cc93a"/><rect x="15" y="4" width="1.02" height="1.02" fill="#5cc93a"/><rect x="16" y="4" width="1.02" height="1.02" fill="#2f7d1f"/><rect x="17" y="4" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="0" y="5" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="1" y="5" width="1.02" height="1.02" fill="#e6ffa6"/><rect x="2" y="5" width="1.02" height="1.02" fill="#a6f03c"/><rect x="3" y="5" width="1.02" height="1.02" fill="#5cc93a"/><rect x="4" y="5" width="1.02" height="1.02" fill="#5cc93a"/><rect x="5" y="5" width="1.02" height="1.02" fill="#5cc93a"/><rect x="6" y="5" width="1.02" height="1.02" fill="#3a9a28"/><rect x="7" y="5" width="1.02" height="1.02" fill="#2f7d1f"/><rect x="8" y="5" width="1.02" height="1.02" fill="#2f7d1f"/><rect x="9" y="5" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="10" y="5" width="1.02" height="1.02" fill="#a6f03c"/><rect x="11" y="5" width="1.02" height="1.02" fill="#5cc93a"/><rect x="12" y="5" width="1.02" height="1.02" fill="#3a9a28"/><rect x="13" y="5" width="1.02" height="1.02" fill="#5cc93a"/><rect x="14" y="5" width="1.02" height="1.02" fill="#5cc93a"/><rect x="15" y="5" width="1.02" height="1.02" fill="#2f7d1f"/><rect x="16" y="5" width="1.02" height="1.02" fill="#2f7d1f"/><rect x="17" y="5" width="1.02" height="1.02" fill="#2f7d1f"/><rect x="18" y="5" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="0" y="6" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="1" y="6" width="1.02" height="1.02" fill="#a6f03c"/><rect x="2" y="6" width="1.02" height="1.02" fill="#5cc93a"/><rect x="3" y="6" width="1.02" height="1.02" fill="#5cc93a"/><rect x="4" y="6" width="1.02" height="1.02" fill="#5cc93a"/><rect x="5" y="6" width="1.02" height="1.02" fill="#5cc93a"/><rect x="6" y="6" width="1.02" height="1.02" fill="#2f7d1f"/><rect x="7" y="6" width="1.02" height="1.02" fill="#3a9a28"/><rect x="8" y="6" width="1.02" height="1.02" fill="#2f7d1f"/><rect x="9" y="6" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="10" y="6" width="1.02" height="1.02" fill="#5cc93a"/><rect x="11" y="6" width="1.02" height="1.02" fill="#3a9a28"/><rect x="12" y="6" width="1.02" height="1.02" fill="#5cc93a"/><rect x="13" y="6" width="1.02" height="1.02" fill="#5cc93a"/><rect x="14" y="6" width="1.02" height="1.02" fill="#2f7d1f"/><rect x="15" y="6" width="1.02" height="1.02" fill="#2f7d1f"/><rect x="16" y="6" width="1.02" height="1.02" fill="#2f7d1f"/><rect x="17" y="6" width="1.02" height="1.02" fill="#2f7d1f"/><rect x="18" y="6" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="1" y="7" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="2" y="7" width="1.02" height="1.02" fill="#5cc93a"/><rect x="3" y="7" width="1.02" height="1.02" fill="#5cc93a"/><rect x="4" y="7" width="1.02" height="1.02" fill="#5cc93a"/><rect x="5" y="7" width="1.02" height="1.02" fill="#2f7d1f"/><rect x="6" y="7" width="1.02" height="1.02" fill="#2f7d1f"/><rect x="7" y="7" width="1.02" height="1.02" fill="#2f7d1f"/><rect x="8" y="7" width="1.02" height="1.02" fill="#3a9a28"/><rect x="9" y="7" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="10" y="7" width="1.02" height="1.02" fill="#3a9a28"/><rect x="11" y="7" width="1.02" height="1.02" fill="#5cc93a"/><rect x="12" y="7" width="1.02" height="1.02" fill="#5cc93a"/><rect x="13" y="7" width="1.02" height="1.02" fill="#2f7d1f"/><rect x="14" y="7" width="1.02" height="1.02" fill="#2f7d1f"/><rect x="15" y="7" width="1.02" height="1.02" fill="#2f7d1f"/><rect x="16" y="7" width="1.02" height="1.02" fill="#2f7d1f"/><rect x="17" y="7" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="2" y="8" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="3" y="8" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="4" y="8" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="5" y="8" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="6" y="8" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="7" y="8" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="8" y="8" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="9" y="8" width="1.02" height="1.02" fill="#3a9a28"/><rect x="10" y="8" width="1.02" height="1.02" fill="#3a9a28"/><rect x="11" y="8" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="12" y="8" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="13" y="8" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="14" y="8" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="15" y="8" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="16" y="8" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="1" y="9" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="2" y="9" width="1.02" height="1.02" fill="#e6ffa6"/><rect x="3" y="9" width="1.02" height="1.02" fill="#e6ffa6"/><rect x="4" y="9" width="1.02" height="1.02" fill="#e6ffa6"/><rect x="5" y="9" width="1.02" height="1.02" fill="#e6ffa6"/><rect x="6" y="9" width="1.02" height="1.02" fill="#a6f03c"/><rect x="7" y="9" width="1.02" height="1.02" fill="#5cc93a"/><rect x="8" y="9" width="1.02" height="1.02" fill="#3a9a28"/><rect x="9" y="9" width="1.02" height="1.02" fill="#3a9a28"/><rect x="10" y="9" width="1.02" height="1.02" fill="#3a9a28"/><rect x="11" y="9" width="1.02" height="1.02" fill="#e6ffa6"/><rect x="12" y="9" width="1.02" height="1.02" fill="#e6ffa6"/><rect x="13" y="9" width="1.02" height="1.02" fill="#e6ffa6"/><rect x="14" y="9" width="1.02" height="1.02" fill="#a6f03c"/><rect x="15" y="9" width="1.02" height="1.02" fill="#5cc93a"/><rect x="16" y="9" width="1.02" height="1.02" fill="#5cc93a"/><rect x="17" y="9" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="0" y="10" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="1" y="10" width="1.02" height="1.02" fill="#e6ffa6"/><rect x="2" y="10" width="1.02" height="1.02" fill="#e6ffa6"/><rect x="3" y="10" width="1.02" height="1.02" fill="#e6ffa6"/><rect x="4" y="10" width="1.02" height="1.02" fill="#e6ffa6"/><rect x="5" y="10" width="1.02" height="1.02" fill="#a6f03c"/><rect x="6" y="10" width="1.02" height="1.02" fill="#5cc93a"/><rect x="7" y="10" width="1.02" height="1.02" fill="#3a9a28"/><rect x="8" y="10" width="1.02" height="1.02" fill="#5cc93a"/><rect x="9" y="10" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="10" y="10" width="1.02" height="1.02" fill="#e6ffa6"/><rect x="11" y="10" width="1.02" height="1.02" fill="#3a9a28"/><rect x="12" y="10" width="1.02" height="1.02" fill="#e6ffa6"/><rect x="13" y="10" width="1.02" height="1.02" fill="#a6f03c"/><rect x="14" y="10" width="1.02" height="1.02" fill="#5cc93a"/><rect x="15" y="10" width="1.02" height="1.02" fill="#5cc93a"/><rect x="16" y="10" width="1.02" height="1.02" fill="#5cc93a"/><rect x="17" y="10" width="1.02" height="1.02" fill="#5cc93a"/><rect x="18" y="10" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="0" y="11" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="1" y="11" width="1.02" height="1.02" fill="#e6ffa6"/><rect x="2" y="11" width="1.02" height="1.02" fill="#e6ffa6"/><rect x="3" y="11" width="1.02" height="1.02" fill="#e6ffa6"/><rect x="4" y="11" width="1.02" height="1.02" fill="#a6f03c"/><rect x="5" y="11" width="1.02" height="1.02" fill="#5cc93a"/><rect x="6" y="11" width="1.02" height="1.02" fill="#3a9a28"/><rect x="7" y="11" width="1.02" height="1.02" fill="#5cc93a"/><rect x="8" y="11" width="1.02" height="1.02" fill="#5cc93a"/><rect x="9" y="11" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="10" y="11" width="1.02" height="1.02" fill="#e6ffa6"/><rect x="11" y="11" width="1.02" height="1.02" fill="#e6ffa6"/><rect x="12" y="11" width="1.02" height="1.02" fill="#3a9a28"/><rect x="13" y="11" width="1.02" height="1.02" fill="#5cc93a"/><rect x="14" y="11" width="1.02" height="1.02" fill="#5cc93a"/><rect x="15" y="11" width="1.02" height="1.02" fill="#5cc93a"/><rect x="16" y="11" width="1.02" height="1.02" fill="#5cc93a"/><rect x="17" y="11" width="1.02" height="1.02" fill="#2f7d1f"/><rect x="18" y="11" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="1" y="12" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="2" y="12" width="1.02" height="1.02" fill="#e6ffa6"/><rect x="3" y="12" width="1.02" height="1.02" fill="#a6f03c"/><rect x="4" y="12" width="1.02" height="1.02" fill="#5cc93a"/><rect x="5" y="12" width="1.02" height="1.02" fill="#5cc93a"/><rect x="6" y="12" width="1.02" height="1.02" fill="#5cc93a"/><rect x="7" y="12" width="1.02" height="1.02" fill="#5cc93a"/><rect x="8" y="12" width="1.02" height="1.02" fill="#2f7d1f"/><rect x="9" y="12" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="10" y="12" width="1.02" height="1.02" fill="#e6ffa6"/><rect x="11" y="12" width="1.02" height="1.02" fill="#a6f03c"/><rect x="12" y="12" width="1.02" height="1.02" fill="#5cc93a"/><rect x="13" y="12" width="1.02" height="1.02" fill="#5cc93a"/><rect x="14" y="12" width="1.02" height="1.02" fill="#5cc93a"/><rect x="15" y="12" width="1.02" height="1.02" fill="#5cc93a"/><rect x="16" y="12" width="1.02" height="1.02" fill="#2f7d1f"/><rect x="17" y="12" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="1" y="13" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="2" y="13" width="1.02" height="1.02" fill="#a6f03c"/><rect x="3" y="13" width="1.02" height="1.02" fill="#5cc93a"/><rect x="4" y="13" width="1.02" height="1.02" fill="#5cc93a"/><rect x="5" y="13" width="1.02" height="1.02" fill="#5cc93a"/><rect x="6" y="13" width="1.02" height="1.02" fill="#5cc93a"/><rect x="7" y="13" width="1.02" height="1.02" fill="#2f7d1f"/><rect x="8" y="13" width="1.02" height="1.02" fill="#2f7d1f"/><rect x="9" y="13" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="10" y="13" width="1.02" height="1.02" fill="#a6f03c"/><rect x="11" y="13" width="1.02" height="1.02" fill="#5cc93a"/><rect x="12" y="13" width="1.02" height="1.02" fill="#5cc93a"/><rect x="13" y="13" width="1.02" height="1.02" fill="#5cc93a"/><rect x="14" y="13" width="1.02" height="1.02" fill="#5cc93a"/><rect x="15" y="13" width="1.02" height="1.02" fill="#2f7d1f"/><rect x="16" y="13" width="1.02" height="1.02" fill="#2f7d1f"/><rect x="17" y="13" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="2" y="14" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="3" y="14" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="4" y="14" width="1.02" height="1.02" fill="#5cc93a"/><rect x="5" y="14" width="1.02" height="1.02" fill="#5cc93a"/><rect x="6" y="14" width="1.02" height="1.02" fill="#2f7d1f"/><rect x="7" y="14" width="1.02" height="1.02" fill="#2f7d1f"/><rect x="8" y="14" width="1.02" height="1.02" fill="#2f7d1f"/><rect x="9" y="14" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="10" y="14" width="1.02" height="1.02" fill="#5cc93a"/><rect x="11" y="14" width="1.02" height="1.02" fill="#5cc93a"/><rect x="12" y="14" width="1.02" height="1.02" fill="#5cc93a"/><rect x="13" y="14" width="1.02" height="1.02" fill="#5cc93a"/><rect x="14" y="14" width="1.02" height="1.02" fill="#2f7d1f"/><rect x="15" y="14" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="16" y="14" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="3" y="15" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="4" y="15" width="1.02" height="1.02" fill="#5cc93a"/><rect x="5" y="15" width="1.02" height="1.02" fill="#2f7d1f"/><rect x="6" y="15" width="1.02" height="1.02" fill="#2f7d1f"/><rect x="7" y="15" width="1.02" height="1.02" fill="#2f7d1f"/><rect x="8" y="15" width="1.02" height="1.02" fill="#2f7d1f"/><rect x="9" y="15" width="1.02" height="1.02" fill="#3fa52c"/><rect x="10" y="15" width="1.02" height="1.02" fill="#3fa52c"/><rect x="11" y="15" width="1.02" height="1.02" fill="#5cc93a"/><rect x="12" y="15" width="1.02" height="1.02" fill="#5cc93a"/><rect x="13" y="15" width="1.02" height="1.02" fill="#2f7d1f"/><rect x="14" y="15" width="1.02" height="1.02" fill="#2f7d1f"/><rect x="15" y="15" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="4" y="16" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="5" y="16" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="6" y="16" width="1.02" height="1.02" fill="#2f7d1f"/><rect x="7" y="16" width="1.02" height="1.02" fill="#2f7d1f"/><rect x="8" y="16" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="9" y="16" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="10" y="16" width="1.02" height="1.02" fill="#3fa52c"/><rect x="11" y="16" width="1.02" height="1.02" fill="#5cc93a"/><rect x="12" y="16" width="1.02" height="1.02" fill="#2f7d1f"/><rect x="13" y="16" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="14" y="16" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="6" y="17" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="7" y="17" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="9" y="17" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="10" y="17" width="1.02" height="1.02" fill="#3fa52c"/><rect x="11" y="17" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="12" y="17" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="10" y="18" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="11" y="18" width="1.02" height="1.02" fill="#2f7d1f"/><rect x="12" y="18" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="10" y="19" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="11" y="19" width="1.02" height="1.02" fill="#2f7d1f"/><rect x="12" y="19" width="1.02" height="1.02" fill="#2f7d1f"/><rect x="13" y="19" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="11" y="20" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="12" y="20" width="1.02" height="1.02" fill="#2f7d1f"/><rect x="13" y="20" width="1.02" height="1.02" fill="#0a1a0d"/><rect x="12" y="21" width="1.02" height="1.02" fill="#0a1a0d"/></svg><b>BRAINROT LUCK</b><div class="bar"><i></i></div></div><div id="st"></div></div>
+<div id="loader"></div>
+<script>
+// Экран входа: клевер собирается из пикселей, буквы падают по одной, шкала заполняется.
+// На выходе клевер разлетается на пиксели, а экран растворяется плитками от центра.
+// Один и тот же файл встраивается в лаунчер (GitHub Pages) — там доступна только «передача» (handoff).
+(function () {
+  var root = document.getElementById('loader');
+  if (!root) return;
+  var PAL = ['#ffe066', '#0a1a0d', '#e6ffa6', '#a6f03c', '#5cc93a', '#2f7d1f', '#3a9a28', '#3fa52c'];
+  var PX = 'BA0EA1FA1GA2HA3IA1KA1LA2MA2NA1OA1AB0BB0CB0DB1EB2FB2GB3HB4IB4JB1KB2LB2MB2NB2OB3PB1BC0CC1DC1EC2FC3GC4HC4IC4JC1KC2LC2MC2NC3OC4PC1QC1BD1CD2DD2ED3FD4GD4HD4ID4JD1KD2LD2MD3ND4OD4PD4QD4RD1BE1CE2DE3EE4FE4GE4HE4IE5JE1KE2LE3ME4NE4OE4PE4QE5RE1AF1BF2CF3DF4EF4FF4GF6HF5IF5JF1KF3LF4MF6NF4OF4PF5QF5RF5SF1AG1BG3CG4DG4EG4FG4GG5HG6IG5JG1KG4LG6MG4NG4OG5PG5QG5RG5SG1BH1CH4DH4EH4FH5GH5HH5IH6JH1KH6LH4MH4NH5OH5PH5QH5RH1CI1DI1EI1FI1GI1HI1II1JI6KI6LI1MI1NI1OI1PI1QI1BJ1CJ2DJ2EJ2FJ2GJ3HJ4IJ6JJ6KJ6LJ2MJ2NJ2OJ3PJ4QJ4RJ1AK1BK2CK2DK2EK2FK3GK4HK6IK4JK1KK2LK6MK2NK3OK4PK4QK4RK4SK1AL1BL2CL2DL2EL3FL4GL6HL4IL4JL1KL2LL2ML6NL4OL4PL4QL4RL5SL1BM1CM2DM3EM4FM4GM4HM4IM5JM1KM2LM3MM4NM4OM4PM4QM5RM1BN1CN3DN4EN4FN4GN4HN5IN5JN1KN3LN4MN4NN4ON4PN5QN5RN1CO1DO1EO4FO4GO5HO5IO5JO1KO4LO4MO4NO4OO5PO1QO1DP1EP4FP5GP5HP5IP5JP7KP7LP4MP4NP5OP5PP1EQ1FQ1GQ5HQ5IQ1JQ1KQ7LQ4MQ5NQ1OQ1GR1HR1JR1KR7LR1MR1KS1LS5MS1KT1LT5MT5NT1LU1MU5NU1MV1';
+  var CELLS = 12;
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var warm = /[?&]l=1(&|$)/.test(location.search); // пришли из лаунчера — клевер уже собран
+
+  var css = '' +
+    '#loader{position:fixed;inset:0;z-index:100;overflow:hidden;background:linear-gradient(#0a130d,#030604);-webkit-user-select:none;user-select:none}' +
+    '#loader.x{background:none;pointer-events:none}' +
+    '.ld-fx{position:absolute;inset:0;width:100%;height:100%;display:block}' +
+    '.ld-st{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;padding-bottom:4vh}' +
+    '.ld-cl{position:relative;width:132px;height:146px}' +
+    '.ld-cw{position:absolute;left:0;top:0;width:132px;height:132px}' +
+    '.ld-cw svg{width:132px;height:132px;display:block;overflow:visible;filter:drop-shadow(0 4px 0 rgba(0,0,0,.45))}' +
+    '.ld-cw rect{transform-box:fill-box;transform-origin:center;animation:ldPx .46s steps(5) var(--d) both}' +
+    '@keyframes ldPx{0%{transform:translate(var(--dx),var(--dy)) scale(.2);opacity:0}25%{opacity:1}100%{transform:none}}' +
+    '.ld-sh{position:absolute;left:36px;bottom:0;width:60px;height:6px;background:rgba(0,0,0,.42);clip-path:polygon(6px 0,calc(100% - 6px) 0,calc(100% - 6px) 2px,100% 2px,100% 4px,calc(100% - 6px) 4px,calc(100% - 6px) 100%,6px 100%,6px 4px,0 4px,0 2px,6px 2px);animation:ldIn .3s steps(3) .5s both}' +
+    '.ld-cw.idle{animation:ldBob 1.6s steps(8) infinite}' +
+    '.ld-cl.idle .ld-sh{animation:ldShB 1.6s steps(8) infinite}' +
+    '@keyframes ldBob{25%{transform:translateY(-7px) rotate(-5deg)}50%{transform:none}75%{transform:translateY(-7px) rotate(5deg)}}' +
+    '@keyframes ldShB{25%,75%{transform:scaleX(.78);opacity:.7}}' +
+    '.ld-cw.pop{animation:ldPop .18s steps(3) forwards}' +
+    '@keyframes ldPop{from{transform:none}to{transform:scale(1.16)}}' +
+    '.ld-lg{display:flex;gap:2px;font:700 31px/1 "Pixelify Sans",monospace;letter-spacing:.02em}' +
+    '.ld-lg span{display:inline-block;color:#5cc93a;text-shadow:0 3px 0 #1c4a14;animation:ldDrop .5s steps(6) calc(520ms + var(--i) * 45ms) both}' +
+    '.ld-lg span.w{color:#fff;text-shadow:0 3px 0 #1c3322}' +
+    '.ld-lg .gap{width:10px}' +
+    '@keyframes ldDrop{0%{transform:translateY(-28px);opacity:0}50%{transform:translateY(3px);opacity:1}75%{transform:translateY(-2px)}100%{transform:none}}' +
+    '.ld-bar{display:flex;gap:3px;padding:4px;background:#0d1a11;box-shadow:inset 0 0 0 2px #1d3424;animation:ldIn .25s steps(3) 1.05s both}' +
+    '.ld-bar i{width:10px;height:8px;background:#15241a}' +
+    '.ld-bar i.on{background:#5cc93a;box-shadow:inset 0 -2px 0 #3f9c2a;animation:ldCell .24s steps(2)}' +
+    '@keyframes ldCell{from{background:#e6ffa6;box-shadow:none}}' +
+    '@keyframes ldIn{from{opacity:0;transform:scaleX(.4)}}' +
+    '.ld-msg{display:none;max-width:280px;margin:0;text-align:center;color:#86a08e;font:600 14px/1.45 system-ui,sans-serif}' +
+    '.ld-msg button{display:block;margin:14px auto 0;padding:10px 24px;border:0;background:#5cc93a;color:#08130b;font:700 15px system-ui,sans-serif;box-shadow:inset 0 -3px 0 #3f9c2a;cursor:pointer}' +
+    '.ld-msg button:active{transform:translateY(2px);box-shadow:inset 0 -1px 0 #3f9c2a}' +
+    '#loader.err .ld-msg{display:block;animation:ldIn .25s steps(3) both}#loader.err .ld-bar{display:none}' +
+    '#loader.out .ld-lg span{animation:ldFall .36s steps(4) calc(var(--i) * 16ms) both}' +
+    '#loader.out .ld-bar{animation:ldOut .2s steps(3) both}' +
+    '@keyframes ldFall{to{transform:translateY(34px);opacity:0}}' +
+    '@keyframes ldOut{to{transform:scaleX(.3);opacity:0}}' +
+    '#loader.warm .ld-cw rect,#loader.warm .ld-lg span,#loader.warm .ld-bar,#loader.warm .ld-sh{animation:none}';
+  var st = document.createElement('style');
+  st.textContent = css;
+  document.head.appendChild(st);
+
+  // ---------- разметка ----------
+  var px = [], svg = '<svg viewBox="0 0 22 22" shape-rendering="crispEdges">';
+  for (var i = 0; i < PX.length; i += 3) {
+    var x = PX.charCodeAt(i) - 65, y = PX.charCodeAt(i + 1) - 65, c = +PX[i + 2];
+    var dx = x - 10.5, dy = y - 10.5, dist = Math.sqrt(dx * dx + dy * dy);
+    var a = Math.atan2(dy, dx) + (Math.random() - 0.5) * 1.2, far = 6 + Math.random() * 10;
+    px.push({ x: x, y: y, c: c });
+    svg += '<rect x="' + x + '" y="' + y + '" width="1.02" height="1.02" fill="' + PAL[c] + '" style="--d:' + Math.round(dist * 32 + Math.random() * 120) +
+      'ms;--dx:' + (Math.cos(a) * far).toFixed(1) + 'px;--dy:' + (Math.sin(a) * far).toFixed(1) + 'px"/>';
+  }
+  svg += '</svg>';
+  var word = 'BRAINROT', word2 = 'LUCK', lg = '', n = 0;
+  for (i = 0; i < word.length; i++) lg += '<span style="--i:' + n++ + '">' + word[i] + '</span>';
+  lg += '<span class="gap"></span>';
+  for (i = 0; i < word2.length; i++) lg += '<span class="w" style="--i:' + n++ + '">' + word2[i] + '</span>';
+  var cells = '';
+  for (i = 0; i < CELLS; i++) cells += '<i></i>';
+  root.innerHTML = '<canvas class="ld-fx"></canvas><div class="ld-st"><div class="ld-cl"><div class="ld-cw">' + svg +
+    '</div><div class="ld-sh"></div></div><div class="ld-lg">' + lg + '</div><div class="ld-bar">' + cells + '</div><div class="ld-msg"></div></div>';
+  if (warm || reduce) root.classList.add('warm');
+
+  var cl = root.querySelector('.ld-cl'), cw = root.querySelector('.ld-cw'), rects = cw.querySelectorAll('rect');
+  var cellEls = root.querySelectorAll('.ld-bar i'), msg = root.querySelector('.ld-msg');
+  var cv = root.querySelector('canvas'), cx = cv.getContext('2d');
+  var W = 0, H = 0, dpr = 1;
+  function size() {
+    dpr = Math.min(2, window.devicePixelRatio || 1); W = innerWidth; H = innerHeight;
+    cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); cx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  size();
+  addEventListener('resize', size);
+
+  // ---------- блик по пикселям ----------
+  function light(hex) {
+    var v = parseInt(hex.slice(1), 16), r = v >> 16, g = (v >> 8) & 255, b = v & 255;
+    function m(k) { return Math.round(k + (255 - k) * 0.5); }
+    return 'rgb(' + m(r) + ',' + m(g) + ',' + m(b) + ')';
+  }
+  var LIGHT = PAL.map(light);
+  var t0 = Date.now(), introMs = warm || reduce ? 0 : 1050;
+  setTimeout(function () {
+    if (root.classList.contains('out')) return;
+    cw.classList.add('idle'); cl.classList.add('idle');
+  }, introMs);
+  var sweep = null;
+  function shine() {
+    if (!root.isConnected || root.classList.contains('out') || reduce) return;
+    var pos = -3;
+    clearInterval(sweep);
+    sweep = setInterval(function () {
+      pos += 1.5;
+      for (var k = 0; k < px.length; k++) {
+        var p = px[k], s = p.x + p.y, on = p.c !== 1 && s >= pos - 1 && s <= pos + 1;
+        rects[k].setAttribute('fill', on ? LIGHT[p.c] : PAL[p.c]);
+      }
+      if (pos > 46) clearInterval(sweep);
+    }, 28);
+  }
+  setTimeout(function loop() { shine(); if (root.isConnected && !root.classList.contains('out')) setTimeout(loop, 2600); }, introMs + 300);
+
+  // ---------- шкала ----------
+  var shown = warm ? 7 : 0, target = 0, lastStep = 0, floor = warm ? 7 / CELLS : 0, waiters = [];
+  for (i = 0; i < shown; i++) cellEls[i].className = 'on';
+  var barT = setInterval(function () {
+    if (!root.isConnected) return clearInterval(barT);
+    var el = Date.now() - t0;
+    if (el < introMs + 150) return;
+    // сама ползёт к ~85%, остаток — когда всё правда загрузилось
+    var auto = floor + (0.86 - floor) * (1 - Math.exp(-(el - introMs) / 2200));
+    var want = Math.max(target, auto);
+    var need = Math.min(CELLS, Math.floor(want * CELLS + 1e-6));
+    if (shown < need && el - lastStep >= (target > auto ? 30 : 90)) { cellEls[shown].className = 'on'; shown++; lastStep = el; }
+    for (var k = waiters.length - 1; k >= 0; k--) if (shown >= waiters[k].n) { var f = waiters[k].f; waiters.splice(k, 1); f(); }
+  }, 30);
+  function fillTo(p, cb) {
+    target = Math.max(target, p);
+    var nn = Math.min(CELLS, Math.floor(p * CELLS + 1e-6));
+    if (shown >= nn) return cb();
+    waiters.push({ n: nn, f: cb });
+  }
+
+  // ---------- канвас: пыль, плитки, осколки ----------
+  var dust = [];
+  for (i = 0; i < 38; i++) dust.push({ x: Math.random(), y: Math.random(), s: [2, 2, 3, 3, 4][i % 5], v: 6 + Math.random() * 16, a: 0.1 + Math.random() * 0.28, ph: Math.random() * 6.3 });
+  var exitAt = 0, tiles = null, shards = null, TILE = 26, EXIT_MS = 720, last = performance.now();
+  function grad() { var g = cx.createLinearGradient(0, 0, 0, H); g.addColorStop(0, '#0a130d'); g.addColorStop(1, '#030604'); return g; }
+  function frame(now) {
+    if (!root.isConnected) return;
+    var dt = Math.min(0.05, (now - last) / 1000); last = now;
+    cx.clearRect(0, 0, W, H);
+    var e = exitAt ? (now - exitAt) / EXIT_MS : 0;
+    if (tiles) {
+      cx.fillStyle = grad();
+      for (var k = 0; k < tiles.length; k++) {
+        var t = tiles[k], q = 1 - Math.min(1, Math.max(0, (e - t.th) / 0.2));
+        q = Math.ceil(q * 4) / 4;
+        if (q <= 0) continue;
+        var sz = q >= 1 ? TILE + 1 : TILE * q;
+        cx.fillRect(Math.round(t.x + (TILE - sz) / 2), Math.round(t.y + (TILE - sz) / 2), Math.ceil(sz), Math.ceil(sz));
+      }
+    }
+    var da = tiles ? Math.max(0, 1 - e * 1.6) : 1;
+    if (da > 0) {
+      for (k = 0; k < dust.length; k++) {
+        var d = dust[k];
+        d.y -= d.v * dt / H;
+        if (d.y < -0.02) { d.y = 1.02; d.x = Math.random(); }
+        var tw = Math.sin(now / 700 + d.ph) > 0.2 ? 1 : 0.55;
+        cx.fillStyle = 'rgba(92,201,58,' + (d.a * tw * da).toFixed(3) + ')';
+        cx.fillRect(Math.round(d.x * W + Math.sin(now / 1300 + d.ph) * 6), Math.round(d.y * H), d.s, d.s);
+      }
+    }
+    if (shards) {
+      var alive = 0;
+      for (k = 0; k < shards.length; k++) {
+        var s = shards[k];
+        s.vy += 1100 * dt; s.vx *= 0.985; s.x += s.vx * dt; s.y += s.vy * dt; s.life -= dt;
+        if (s.life <= 0 || s.y > H + 20) continue;
+        alive++;
+        cx.globalAlpha = Math.min(1, s.life / 0.25);
+        cx.fillStyle = s.c;
+        var z = s.life < 0.35 ? Math.max(2, Math.round(s.s * 0.6)) : s.s;
+        cx.fillRect(Math.round(s.x), Math.round(s.y), z, z);
+      }
+      cx.globalAlpha = 1;
+      if (!alive && e > 1.25) return root.remove();
+    }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+
+  function shatter() {
+    var r = cw.querySelector('svg').getBoundingClientRect(), u = r.width / 22, ccx = r.left + r.width / 2, ccy = r.top + r.height / 2;
+    shards = px.map(function (p) {
+      var dx = p.x - 10.5, dy = p.y - 10.5, L = Math.sqrt(dx * dx + dy * dy) || 1, sp = 220 + Math.random() * 520;
+      return { x: r.left + p.x * u, y: r.top + p.y * u, s: Math.max(3, Math.round(u)), c: PAL[p.c],
+        vx: dx / L * sp + (Math.random() - 0.5) * 120, vy: dy / L * sp - 260 - Math.random() * 260, life: 0.8 + Math.random() * 0.7 };
+    });
+    tiles = [];
+    var cols = Math.ceil(W / TILE), rows = Math.ceil(H / TILE), maxD = Math.sqrt(W * W + H * H) / 2 + TILE;
+    for (var yy = 0; yy < rows; yy++) for (var xx = 0; xx < cols; xx++) {
+      var tx = xx * TILE, ty = yy * TILE, ddx = tx + TILE / 2 - ccx, ddy = ty + TILE / 2 - ccy;
+      tiles.push({ x: tx, y: ty, th: Math.sqrt(ddx * ddx + ddy * ddy) / maxD * 0.72 + Math.random() * 0.1 });
+    }
+    cl.style.visibility = 'hidden';
+    root.classList.add('x');
+    exitAt = performance.now();
+  }
+
+  var leaving = false;
+  window.LD = {
+    // реальный прогресс загрузки 0..1
+    progress: function (p) { target = Math.max(target, Math.min(0.95, p)); },
+    // лаунчер: дозаполнить шкалу до середины и уйти на сервер
+    handoff: function (cb) { fillTo(7 / CELLS, function () { setTimeout(cb, 90); }); },
+    // приложение готово: шкала до конца, клевер лопается, экран растворяется
+    done: function (cb) {
+      if (leaving) return; leaving = true;
+      cb = cb || function () {};
+      if (reduce) { cb(); root.style.transition = 'opacity .3s'; root.style.opacity = 0; setTimeout(function () { root.remove(); }, 320); return; }
+      fillTo(1, function () {
+        setTimeout(function () {
+          clearInterval(sweep);
+          for (var k = 0; k < px.length; k++) rects[k].setAttribute('fill', PAL[px[k].c]);
+          root.classList.add('out');
+          cw.classList.remove('idle'); cl.classList.remove('idle');
+          cw.classList.add('pop');
+          setTimeout(function () { shatter(); cb(); }, 190);
+        }, 140);
+      });
+    },
+    fail: function (text, btn, onBtn) {
+      root.classList.add('err');
+      msg.innerHTML = '';
+      var p = document.createElement('div'); p.textContent = text; msg.appendChild(p);
+      var b = document.createElement('button'); b.textContent = btn || 'Ещё раз';
+      b.onclick = onBtn || function () { location.reload(); };
+      msg.appendChild(b);
+    }
+  };
+})();
+</script>
 <script>
 // Переходник: Telegram открывает эту страницу, она проверяет все адреса сервера параллельно
 // и переходит на первый доступный (прямой — в приоритете), сохраняя данные Telegram из #hash.
@@ -32,24 +257,7 @@
   var direct = (qs.get('d') || '').split(',').filter(function (h) { return OK_HOST.test(h); });
   var workers = (qs.get('w') || '').split(',').filter(function (h) { return OK_HOST.test(h); });
   var tunnel = workers.concat(OK_HOST.test(qs.get('t') || '') ? [qs.get('t')] : []);
-  var st = document.getElementById('st');
-  var t0 = Date.now();
   var done = false;
-  var state = {};
-  var names = {};
-  direct.forEach(function (h, i) { names[h] = 'Сервер ' + (i + 1); });
-  tunnel.forEach(function (h) { names[h] = /workers\.dev$/.test(h) ? 'Резервный 1 (Worker)' : 'Резервный 2 (туннель)'; });
-
-  function draw() {
-    // статусы показываем, только если проверка затянулась — обычно переход занимает <1 с
-    if (Date.now() - t0 < 1500 && !done) return;
-    st.innerHTML = Object.keys(names).map(function (h) {
-      var s = state[h] || '…';
-      var cls = s === 'доступен' || s === 'открываю' ? 'ok' : s === '…' ? '' : 'bad';
-      return '<div class="' + cls + '">' + names[h] + ': ' + s + '</div>';
-    }).join('');
-  }
-  setInterval(draw, 500);
 
   function probe(host, ms) {
     return new Promise(function (resolve, reject) {
@@ -57,35 +265,25 @@
       var to = setTimeout(function () { ctrl.abort(); }, ms);
       fetch('https://' + host + '/ping?_=' + Date.now(), { cache: 'no-store', signal: ctrl.signal })
         .then(function (r) { return r.text(); })
-        .then(function (t) {
-          clearTimeout(to);
-          if (t.indexOf('BrainrotLuck') === 0) { state[host] = 'доступен'; resolve(host); }
-          else { state[host] = 'чужой ответ'; reject(); }
-        })
-        .catch(function (e) {
-          clearTimeout(to);
-          state[host] = e && e.name === 'AbortError' ? 'не отвечает (' + Math.round(ms / 1000) + ' с)' : 'заблокирован или недоступен';
-          reject();
-        });
+        .then(function (t) { clearTimeout(to); if (t.indexOf('BrainrotLuck') === 0) resolve(host); else reject(); })
+        .catch(function () { clearTimeout(to); reject(); });
     });
   }
   function go(host) {
     if (done) return; done = true;
-    state[host] = 'открываю'; draw();
-    location.replace('https://' + host + '/' + location.hash);
+    LD.progress(0.5);
+    LD.handoff(function () { location.replace('https://' + host + '/?l=1' + location.hash); });
   }
   function fail() {
-    done = true; draw();
-    document.getElementById('box').innerHTML = '<b>BRAINROT LUCK</b><p>Не получилось связаться с сервером. Сделай скрин этого экрана и отправь админу.</p><button id="re">Ещё раз</button>';
-    document.getElementById('re').onclick = function () { location.reload(); };
+    if (done) return; done = true;
+    LD.fail('Не получилось подключиться. Проверь интернет и попробуй ещё раз.');
   }
 
   // все адреса проверяются сразу. Прямой адрес главнее: если он ответил, идём на него.
-  // Туннель берём, только когда прямые не ответили (в РФ Cloudflare грузит приложение обрезанным).
+  // Запасной берём, только когда прямые не ответили.
   var directOk = false, directLeft = direct.length, tunnelHost = null, tunnelLeft = tunnel.length;
   function decide() {
-    if (done) return;
-    if (directOk) return;
+    if (done || directOk) return;
     if (directLeft === 0 && tunnelHost) return go(tunnelHost);
     if (directLeft === 0 && tunnelLeft === 0) return fail();
   }
