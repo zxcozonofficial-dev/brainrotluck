@@ -57,11 +57,11 @@ html, body { margin: 0; height: 100%; background: #030604; }
     '.ld-msg button{display:block;margin:14px auto 0;padding:10px 24px;border:0;background:#5cc93a;color:#08130b;font:700 15px system-ui,sans-serif;box-shadow:inset 0 -3px 0 #3f9c2a;cursor:pointer}' +
     '.ld-msg button:active{transform:translateY(2px);box-shadow:inset 0 -1px 0 #3f9c2a}' +
     '#loader.err .ld-msg{display:block;animation:ldIn .25s steps(3) both}#loader.err .ld-bar{display:none}' +
-    '#loader.out .ld-lg span{animation:ldFall .36s steps(4) calc(var(--i) * 16ms) both}' +
-    '#loader.out .ld-bar{animation:ldOut .2s steps(3) both}' +
+    '#loader.warm .ld-cw rect,#loader.warm .ld-lg span,#loader.warm .ld-bar,#loader.warm .ld-sh{animation:none}' +
+    '#loader.out.out .ld-lg span{animation:ldFall .36s steps(4) calc(var(--i) * 16ms) both}' +
+    '#loader.out.out .ld-bar{animation:ldOut .2s steps(3) both}' +
     '@keyframes ldFall{to{transform:translateY(34px);opacity:0}}' +
-    '@keyframes ldOut{to{transform:scaleX(.3);opacity:0}}' +
-    '#loader.warm .ld-cw rect,#loader.warm .ld-lg span,#loader.warm .ld-bar,#loader.warm .ld-sh{animation:none}';
+    '@keyframes ldOut{to{transform:scaleX(.3);opacity:0}}';
   var st = document.createElement('style');
   st.textContent = css;
   document.head.appendChild(st);
@@ -211,6 +211,8 @@ html, body { margin: 0; height: 100%; background: #030604; }
       tiles.push({ x: tx, y: ty, th: Math.sqrt(ddx * ddx + ddy * ddy) / maxD * 0.72 + Math.random() * 0.1 });
     }
     cl.style.visibility = 'hidden';
+    var stg = root.querySelector('.ld-st');
+    setTimeout(function () { stg.style.visibility = 'hidden'; }, 600);
     root.classList.add('x');
     exitAt = performance.now();
   }
