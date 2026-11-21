@@ -43,7 +43,7 @@ html, body { margin: 0; height: 100%; background: #030604; }
     '@keyframes ldPop{from{transform:none}to{transform:scale(1.16)}}' +
     '.ld-lg{display:flex;gap:2px;font:700 31px/1 "Pixelify Sans",monospace;letter-spacing:.02em}' +
     '.ld-lg span{display:inline-block;color:#5cc93a;text-shadow:0 3px 0 #1c4a14;animation:ldDrop .5s steps(6) calc(120ms + var(--i) * 45ms) both}' +
-    '.ld-lg span.w{color:#fff;text-shadow:0 3px 0 #1c3322}' +
+    '.ld-lg span.w{color:#fff;text-shadow:0 3px 0 #1c3322}.ld-lg span.lc{clip-path:polygon(0 0,100% 0,100% 34%,52% 34%,52% 66%,100% 66%,100% 100%,0 100%)}' +
     '.ld-lg .gap{width:10px}' +
     '@keyframes ldDrop{0%{transform:translateY(-28px);opacity:0}50%{transform:translateY(3px);opacity:1}75%{transform:translateY(-2px)}100%{transform:none}}' +
     '.ld-bar{display:flex;gap:3px;padding:4px;background:#0d1a11;box-shadow:inset 0 0 0 2px #1d3424;animation:ldIn .25s steps(3) .55s both}' +
@@ -78,7 +78,7 @@ html, body { margin: 0; height: 100%; background: #030604; }
   var word = 'BRAINROT', word2 = 'LUCK', lg = '', n = 0;
   for (i = 0; i < word.length; i++) lg += '<span style="--i:' + n++ + '">' + word[i] + '</span>';
   lg += '<span class="gap"></span>';
-  for (i = 0; i < word2.length; i++) lg += '<span class="w" style="--i:' + n++ + '">' + word2[i] + '</span>';
+  for (i = 0; i < word2.length; i++) lg += '<span class="w' + (word2[i] === 'C' ? ' lc' : '') + '" style="--i:' + n++ + '">' + word2[i] + '</span>';
   var cells = '';
   for (i = 0; i < CELLS; i++) cells += '<i></i>';
   root.innerHTML = '<canvas class="ld-fx"></canvas><div class="ld-st"><div class="ld-cl"><div class="ld-cw">' + svg +
