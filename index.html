@@ -274,7 +274,9 @@ html, body { margin: 0; height: 100%; background: #030604; }
   function go(host) {
     if (done) return; done = true;
     LD.progress(0.5);
-    LD.handoff(function () { location.replace('https://' + host + '/?l=1' + location.hash); });
+    var dl = qs.get('go'); // куда открыть приложение (например, тикет в админке)
+    var extra = dl && /^[a-z]+(:[A-Z0-9-]{3,20})?$/.test(dl) ? '&go=' + encodeURIComponent(dl) : '';
+    LD.handoff(function () { location.replace('https://' + host + '/?l=1' + extra + location.hash); });
   }
   function fail() {
     if (done) return; done = true;
